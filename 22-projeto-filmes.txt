@@ -1,0 +1,828 @@
+Para alterar idioma de exibição:
+Ctrl+Shift+P
+digite na barra: display
+selecione: Configurar idioma de exibição
+
+npx create-react-app filmes
+cd filmes
+yarn start ou  npm start
+
+
+****************************
+No terminal instalar o pacote para criar as rotas, 
+MAS VERIFIQUE SE REALMENTE ACESSOU "cd filmes"
+
+D:\Movies-Project\filmes>       <--------
+
+npm install react-router-dom
+****************************
+
+
+-----
+Para iniciar do zero, App.js:
+
+
+function App() {
+  return (
+    <div className="App">
+        teste
+    </div>
+  );
+}
+
+export default App;
+
+
+-----
+index.js:
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client'; // Observe "client"
+import './index.css';
+import App from './App';
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+
+-----
+alterar configurações inicias em index.css:
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+   font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+
+
+------------------------------------------
+Criando o projeto
+------------------------------------------
+
+
+
+
+Em src/pages/Home/index.js e criar um componente padrão: ((veja pasta e function com primeira letra maiuscula.))
+
+
+function Home(){
+    return(
+        <div>
+            <h2>Home</h2>
+        </div>
+    );
+}
+export default Home;
+
+
+
+-----
+Em src/pages/Filme/index.js e criar um componente padrão:
+
+function Filme(){
+    return(
+        <div>
+            Página filmes
+        </div>
+    );
+}
+export default Filme;
+
+
+
+-------------------------------------
+Criar rotas
+-------------------------------------
+
+
+
+Em src/routes.js:
+
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Filme from './pages/Filme';
+
+import Header from './components/Header';
+
+function RoutesApp(){
+  return(
+    <BrowserRouter>
+    
+      <Header/>
+
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/filme/:id" element={ <Filme/> } />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default RoutesApp;
+
+
+
+_________________Atualizar App.js:
+
+
+//import { Route } from "react-router-dom";
+
+import RoutesApp from './routes';
+
+function App() {
+  return (
+    <div className="App">
+      <RoutesApp/>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+--------------------------------------
+
+Criar cabeçalho.
+src/components/Header/index.js:
+
+import './header.css';
+import { Link } from 'react-router-dom'; //L maiúsculo
+
+function Header(){
+  return(
+    <header>
+      <Link className="logo" to="/">Prime Flix</Link>
+      <Link className="favoritos" to="/favoritos">Meus filmes</Link>
+    </header>
+  )
+}
+
+export default Header;
+
+
+----------------src/components/Header/header.css
+
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 60px;
+  background-color: #000000;
+}
+
+.logo{
+  text-decoration: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.favoritos{
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #FFF;
+  padding: 5px 14px;
+  color: #000000;
+  border-radius: 4px;
+}
+
+
+
+
+--------------------------------Atualizar routes.js SEMPRE QUE CRIAR NOVAS ROTAS
+
+-----------------------------
+Buscar uma API para requisições HTTP
+
+Exemplo usado neste projeto:
+Vá em 
+https://www.themoviedb.org/?language=br
+
+Criar uma conta gratuita, confirme no email.
+
+Volte ao site e entre em configurações/API e solicitar CHAVE de API
+
+Developer
+ Aceitar os termos.
+
+Faça o cadastro, tipo de uso pessoal e justifique...
+
+Agora será liberada a chave e link de demonstração.
+
+Será algo parecido com isso:
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
+
+Use a extensão "JSON Viewer" no navegador para visualizar melhor
+Download em:
+https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh?hl=pt-br
+Em configurações melhor escolher drácula para visualizalção. 
+Deixar opção para "Usar somente quewndo clicar na extensão"
+
+-----
+Se usar um parâmetro de idioma na frente do link ele já traduz ( &language=pt-BR )
+
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
+
+
+Base da url:
+https://api.themoviedb.org/3/
+
+
+-----
+Veja outras opções no site, clique no link que está nesta parte:
+
+Documentação
+Our primary documentation is located at __developers.themoviedb.org.__
+
+Deixe na versão 3
+
+Vá em movies e veja tudo que é possivel utilizar nesta opção
+
+
+-----------------------
+----------------------
+Em todas as requisições HTTP será usado a biblioteca "axios", melhor que usar "fetch". 
+Porém o axios deve ser instalado no terminal:
+npm install axios
+
+Em src/services/api.js:
+
+
+
+/*
+Base da url:
+https://api.themoviedb.org/3/
+
+O restante são as rotas, podem ser utilizadas na Home
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
+
+"movie/now_plaing" rota da URL que será utilizada.
+
+*/
+
+import axios from 'axios';
+
+const api = axios.create({
+    baseURL: 'https://api.themoviedb.org/3/',
+
+});
+
+export default api;
+
+
+------------------------------
+
+Home:
+
+
+// https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
+// "movie/now_playing" rota que da URL que será utilizada.
+
+import { useEffect, useState } from 'react';
+import api from '../../services/api';
+
+// useEffect, vai buscar os filmes
+// useState, depois que buscar armazenar em um estado para que quando o usuário abrir a aplicação carregue os filmes.
+
+function Home(){
+
+  const [filmes, setFilmes] = useState([]);
+
+  // toda vez que que a aplicação abrir vai chamar useEffect
+  useEffect(() => {
+    async function loadFilmes(){
+      //await  para esperar a requisição
+      //get para buscar informações
+      const response = await api.get("movie/now_playing",{
+        params: {
+          api_key:'28fc232cc001c31e8a031f419d0a14ca',
+          language: 'pt-BR',
+          page: 1,
+        }
+      })    // "movie/now_playing" rota que da URL que será utilizada.
+      
+      //console.log(response); //para testar
+      //console.log(response.data); // Aqui vai aparecer tudo que precisa para chamar na aplicação.
+      console.log(response.data.results);
+    }
+    loadFilmes();
+  }, [])
+
+
+  return(
+    <div>
+      <h1>BEM VINDO A HOME</h1>
+    </div>
+  )
+}
+
+export default Home;
+
+
+-------------------------------------Atualizações na Home passando conteúdo para setFilmes.
+
+
+
+import { useEffect, useState} from 'react';
+import api from '../../services/api';
+
+import './home.css';
+import { Link } from 'react-router-dom';
+
+// URL DA API: /movie/now_playing?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
+
+function Home(){
+  const [filmes, setFilmes] = useState([]);
+
+
+  useEffect(()=>{
+
+    async function loadFilmes(){
+      const response = await api.get("movie/now_playing", {
+        params:{
+         api_key: "28fc232cc001c31e8a031f419d0a14ca",
+         language: "pt-BR",
+         page: 1,
+        }
+      })
+
+      //console.log(response.data.results); // Exibiu 20 itens, para pegar apenas 10:
+      //console.log(response.data.results.slice(0,10)); //Agora é só passar para o setFilmes
+      
+      setFilmes(response.data.results.slice(0,10))
+
+    }
+
+    loadFilmes();
+
+  }, [])
+
+//    {filmes.map((filme)=> {     Vai percorrer toda a lista.
+
+// imagem terá parte do link, pode concatenar com a base do  link. Veja a base do link no site de origem, em imagens. https:image.tmdb.org/t/p/original/
+// Para concatenar lembre-se das aspas de crase.
+
+  return(
+    <div>
+      <h1>BEM VINDO A HOME</h1>
+      <div className='container'>
+        <div className='lista-filmes'>
+          {filmes.map((filme)=> {
+            return(
+              <article key={filme.id}>
+                 <strong>{ filme.title }</strong>
+                 <img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+                 <Link to ={`filme/${ filme.id }`}>Acessar</Link>
+              </article>
+            )
+
+          })}
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Home;
+
+
+
+
+
+
+
+
+------------------------- Criar em Home home.css:
+
+.lista-filmes{
+    max-width: 800px;
+    margin: 14px auto;
+}
+
+.lista-filmes article{
+    width: 100%;
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.lista-filmes strong{
+    margin-bottom: 14px;
+    text-align: center;
+    font-size: 22px;
+    display: block;    
+}
+
+.lista-filmes img{
+    width: 900px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /*Isso da um efeito de tamanho bem interessante*/
+    display: block;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.lista-filmes a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #116feb;
+    text-decoration: none;
+    color: #fff;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;    
+}
+
+
+
+
+--------------------------------------
+Carregar filmes
+--------------------------------------Atualizando homejs e css
+
+Em Home/index.js:
+
+
+
+import { useEffect, useState} from 'react';
+import api from '../../services/api';
+
+import './home.css';
+import { Link } from 'react-router-dom';
+
+// URL DA API: /movie/now_playing?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
+
+function Home(){
+  const [filmes, setFilmes] = useState([]);
+  const [loading, SetLoading] = useState(true); // Carregando filmes...  (Deixe "true" e passe para falso mais abaixo, apos carregar todos os filmes)
+
+
+  useEffect(()=>{
+
+    async function loadFilmes(){
+      const response = await api.get("movie/now_playing", {
+        params:{
+         api_key: "28fc232cc001c31e8a031f419d0a14ca",
+         language: "pt-BR",
+         page: 1,
+        }
+      })
+
+      setFilmes(response.data.results.slice(0,10))
+      
+      // Carregando filmes...  (Passe para "false" para exibir o conteúdo).
+	// Para testar o texto carregando comente //SetLoading(false); e recarregue a página.
+      
+	SetLoading(false);
+    }
+
+    loadFilmes();
+
+  }, [])
+
+
+
+// Carregando filmes...
+if(loading){
+  return(
+    <div className='loading'>
+      <h3>Carregando filmes...</h3>
+    </div>
+  )
+}
+
+
+  return(
+    <div>
+      <h1>BEM VINDO A HOME</h1>
+      <div className='container'>
+        <div className='lista-filmes'>
+          {filmes.map((filme)=> {
+            return(
+              <article key={filme.id}>
+                 <strong>{ filme.title }</strong>
+                 <img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+                 <Link to ={`filme/${ filme.id }`}>Acessar</Link>
+              </article>
+            )
+
+          })}
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Home;
+
+
+
+-----------Atualizando home.css
+
+
+.lista-filmes{
+    max-width: 800px;
+    margin: 14px auto;
+}
+
+.lista-filmes article{
+    width: 100%;
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.lista-filmes strong{
+    margin-bottom: 14px;
+    text-align: center;
+    font-size: 22px;
+    display: block;    
+}
+
+.lista-filmes img{
+    width: 900px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /*Isso da um efeito de tamanho bem interessante*/
+    display: block;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.lista-filmes a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #116feb;
+    text-decoration: none;
+    color: #fff;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;    
+}
+
+
+/* Carregando filmes... */
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+}
+
+
+
+--------------------------------------
+Criar páginas de erro.
+--------------------------------------
+Em pages/erro/index.jx:
+
+function Erro(){
+    return(
+        <div>
+            <h1>Página não encontrada.</h1>TESTE
+        </div>
+    )
+}
+
+export default Erro;
+
+--------------------------------------Atualizar pages/erro/index.jx:
+
+
+import { Link } from 'react-router-dom';
+
+import './erro.css';
+
+function Erro(){
+    return(
+        <div className='erro-404'>
+            <h1>Erro 404</h1>
+            <h2>Página não encontrada.</h2>
+
+            <Link to="/">Voltar para página inicial</Link>
+        </div>
+    )
+}
+
+export default Erro;
+
+
+
+
+
+-------------pages/erro/erro.css:
+
+.erro-404{
+    width: 100%;
+    /* height: 100vh; */
+    height: calc(100vh - 60px); /* 60px é do cabeçalho */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.erro-404 h1 {
+    font-size: 3em;
+}
+
+
+/* Onde está "Link" use "a" aqui no css*/
+.erro-404 a {
+    text-decoration: none;
+    background-color: #116feb;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+
+
+
+-------------Atualizar rotas. routes.js
+
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Filme from './pages/Filme';
+
+import Header from './components/Header';
+
+import Erro from './pages/Erro';
+
+function RoutesApp(){
+  return(
+    <BrowserRouter>
+      <Header/>
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/filme/:id" element={ <Filme/> } />
+
+        <Route path='*' element={ <Erro/>}/>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default RoutesApp;
+
+
+
+
+--------------------------------------
+Ao clicar no filme criar página para DETALHES DO FILME
+--------------------------------------
+
+Atualizar página Filme/index.js:
+
+
+
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; //para pegar os parâmetros
+
+import api from '../../services/api'; // para usar await
+
+/* Para usar o useParams verifique em routes.js o nome dado, 
+se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+Neste caso foi "id" */
+
+function Filme(){
+  const {  id  } = useParams(); 
+//Pegou o id agora pode usar o useEffect
+
+//para exibir em return
+const[filme, setFilme] = useState({});
+
+//Para exibir um texto enquanto carrega
+const[loading, setLoading] = useState(true);
+
+
+
+useEffect(()=> {
+  async function loadFilme(){
+    await api.get(`/movie/${id}` , {
+      params:{
+        api_key: "28fc232cc001c31e8a031f419d0a14ca",
+        language: "pt-BR",
+        page: 1,
+       }      
+    })
+    //Se encontrar o filme entra em .then((response)
+    .then((response)=> {
+      //console.log(response.data);
+      setFilme(response.data);
+      setLoading(false);
+
+    })
+    //Se der errado entra em .catch
+    .catch(()=>{
+      console.log("Filme não encontrado");
+
+    })
+
+  }
+  loadFilme();
+
+
+  //Verificar a saida da página
+  return()=>{
+    console.log("Componente foi desmontado");
+  }
+
+}, [])
+
+
+//Para exibir um texto enquanto carrega
+if(loading){
+  return(
+    <div className="filme-info">
+      <h2>Carregando detalhes do filme...</h2>
+    </div>
+  )
+}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+
+
+/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
+propriedades da url da página "backdrop_path", "overview", "vote_average".
+
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
+
+<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+*/
+  return(
+    <div className="filme-info">
+      {/* <h1>Detalhes do filme { id } </h1> */}
+
+      <h1>{filme.title}</h1>
+      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <h3>Sinopse</h3>
+      <span>{filme.overview}</span>
+      <strong>Avaliação: {filme.vote_average} / 10</strong>
+    </div>
+  )
+}
+
+export default Filme;
+
+
+
+
+-----------------------Criar Filme/filme.css:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.

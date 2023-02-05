@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Home(){
   const [filmes, setFilmes] = useState([]);
+  const [loading, SetLoading] = useState(true); // Carregando filmes...  (Deixe "true" e passe para falso mais abaixo, apos carregar todos os filmes)
 
 
   useEffect(()=>{
@@ -21,21 +22,27 @@ function Home(){
         }
       })
 
-      //console.log(response.data.results); // Exibiu 20 itens, para pegar apenas 10:
-      //console.log(response.data.results.slice(0,10)); //Agora é só passar para o setFilmes
-      
       setFilmes(response.data.results.slice(0,10))
-
+      
+      // Carregando filmes...  (Passe para "false" para exibir o conteúdo)
+      SetLoading(false);
     }
 
     loadFilmes();
 
   }, [])
 
-//    {filmes.map((filme)=> {     Vai percorrer toda a lista.
 
-// imagem terá parte do link, pode concatenar com a base do  link. Veja a base do link no site de origem, em imagens. https:image.tmdb.org/t/p/original/
-// Para concatenar lembre-se das aspas de crase.
+
+// Carregando filmes...
+if(loading){
+  return(
+    <div className='loading'>
+      <h3>Carregando filmes...</h3>
+    </div>
+  )
+}
+
 
   return(
     <div>

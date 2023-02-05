@@ -38,3 +38,12 @@
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;    
 }
+
+
+/* Carregando filmes... */
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+}
