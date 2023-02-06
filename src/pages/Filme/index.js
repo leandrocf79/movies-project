@@ -1,23 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; //para pegar os parâmetros
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import api from '../../services/api'; 
+import './filme-info.css';
 
-import api from '../../services/api'; // para usar await
-
-/* Para usar o useParams verifique em routes.js o nome dado, 
-se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
-Neste caso foi "id" */
+import { toast } from 'react-toastify';
 
 function Filme(){
   const {  id  } = useParams(); 
-//Pegou o id agora pode usar o useEffect
-
-//para exibir em return
-const[filme, setFilme] = useState({});
-
-//Para exibir um texto enquanto carrega
-const[loading, setLoading] = useState(true);
-
-
+  const navigate = useNavigate(); 
+  const[filme, setFilme] = useState({});
+  const[loading, setLoading] = useState(true);
 
 useEffect(()=> {
   async function loadFilme(){
@@ -28,58 +20,75 @@ useEffect(()=> {
         page: 1,
        }      
     })
-    //Se encontrar o filme entra em .then((response)
+    
     .then((response)=> {
-      //console.log(response.data);
+      
       setFilme(response.data);
       setLoading(false);
 
     })
-    //Se der errado entra em .catch
+   
     .catch(()=>{
       console.log("Filme não encontrado");
-
-    })
-
+      navigate("/", {replace: true}); 
+      return; 
+    }) 
   }
   loadFilme();
-
-
-  //Verificar a saida da página
+  
   return()=>{
     console.log("Componente foi desmontado");
   }
 
-}, [])
+}, [navigate, id]) 
+
+//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+function salvarFilme(){
+  //alert("teste botão salvar filme")
+  const minhaLista = localStorage.getItem("@salvarfilmes")
+  
+  let filmeSalvo = JSON.parse(minhaLista) || []; // Aqui vai verificar se existe ou criar um array
+
+  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se já existe na lista
+//Vai retornar boolean
+
+if(hasFilme){
+  //alert("Esse filme já está na lista");
+  toast.warn("Esse filme já está na lista");
+
+return; // para parar a execução
+}
+filmeSalvo.push(filme);
+localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
+//alert("Filme salvo com sucesso!")
+toast.success("Filme salvo com sucesso!");
+
+}
 
 
-//Para exibir um texto enquanto carrega
 if(loading){
   return(
     <div className="filme-info">
       <h2>Carregando detalhes do filme...</h2>
     </div>
   )
-}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
-
-
-/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
-propriedades da url da página "backdrop_path", "overview", "vote_average".
-
-https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
-
-<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
-<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
-*/
+}
   return(
     <div className="filme-info">
-      {/* <h1>Detalhes do filme { id } </h1> */}
-
+      
       <h1>{filme.title}</h1>
       <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
       <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+
+      <button onClick={salvarFilme}>Salvar</button>
+      
+      <button><a target="blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
+      </div>
+    
     </div>
   )
 }

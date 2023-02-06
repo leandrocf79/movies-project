@@ -20,8 +20,16 @@
 .lista-filmes img{
     width: 900px;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 340px; /* use para encurtar */
     object-fit: cover; /*Isso da um efeito de tamanho bem interessante*/
+    /*
+    object-fit: fill;
+    object-fit: contain;
+    object-fit: cover;
+    object-fit: none;
+    object-fit: scale-down;
+    https://www.w3schools.com/css/css3_object-fit.asp
+    */
     display: block;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -31,7 +39,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 10px 0;
+    font-size: 24px;
     background-color: #116feb;
     text-decoration: none;
     color: #fff;

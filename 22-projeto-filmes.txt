@@ -449,8 +449,16 @@ export default Home;
 .lista-filmes img{
     width: 900px;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 340px; /* use para encurtar */
     object-fit: cover; /*Isso da um efeito de tamanho bem interessante*/
+    /*
+    object-fit: fill;
+    object-fit: contain;
+    object-fit: cover;
+    object-fit: none;
+    object-fit: scale-down;
+    https://www.w3schools.com/css/css3_object-fit.asp
+    */
     display: block;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -460,7 +468,8 @@ export default Home;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 10px 0;
+    font-size: 24px;
     background-color: #116feb;
     text-decoration: none;
     color: #fff;
@@ -505,10 +514,8 @@ function Home(){
 
       setFilmes(response.data.results.slice(0,10))
       
-      // Carregando filmes...  (Passe para "false" para exibir o conteúdo).
-	// Para testar o texto carregando comente //SetLoading(false); e recarregue a página.
-      
-	SetLoading(false);
+      // Carregando filmes...  (Passe para "false" para exibir o conteúdo)
+      SetLoading(false);
     }
 
     loadFilmes();
@@ -529,9 +536,9 @@ if(loading){
 
   return(
     <div>
-      <h1>BEM VINDO A HOME</h1>
       <div className='container'>
         <div className='lista-filmes'>
+        <h1>Top 10</h1>
           {filmes.map((filme)=> {
             return(
               <article key={filme.id}>
@@ -578,8 +585,16 @@ export default Home;
 .lista-filmes img{
     width: 900px;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 340px; /* use para encurtar */
     object-fit: cover; /*Isso da um efeito de tamanho bem interessante*/
+    /*
+    object-fit: fill;
+    object-fit: contain;
+    object-fit: cover;
+    object-fit: none;
+    object-fit: scale-down;
+    https://www.w3schools.com/css/css3_object-fit.asp
+    */
     display: block;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -589,7 +604,8 @@ export default Home;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 10px 0;
+    font-size: 24px;
     background-color: #116feb;
     text-decoration: none;
     color: #fff;
@@ -605,6 +621,7 @@ export default Home;
     align-items: center;
     margin-top: 14px;
 }
+
 
 
 
@@ -722,6 +739,9 @@ import { useParams } from "react-router-dom"; //para pegar os parâmetros
 
 import api from '../../services/api'; // para usar await
 
+// import './filme-info.css';
+
+
 /* Para usar o useParams verifique em routes.js o nome dado, 
 se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
 Neste caso foi "id" */
@@ -806,9 +826,852 @@ https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
 export default Filme;
 
 
+------------------------------------
+------------------------------------CRIAR BOTÕES.
+
+Atualizar página Filme/index.js NOVAMENTE:
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; //para pegar os parâmetros
+
+import api from '../../services/api'; // para usar await
+
+import './filme-info.css';
 
 
------------------------Criar Filme/filme.css:
+/* Para usar o useParams verifique em routes.js o nome dado, 
+se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+Neste caso foi "id" */
+
+function Filme(){
+  const {  id  } = useParams(); 
+//Pegou o id agora pode usar o useEffect
+
+//para exibir em return
+const[filme, setFilme] = useState({});
+
+//Para exibir um texto enquanto carrega
+const[loading, setLoading] = useState(true);
+
+
+
+useEffect(()=> {
+  async function loadFilme(){
+    await api.get(`/movie/${id}` , {
+      params:{
+        api_key: "28fc232cc001c31e8a031f419d0a14ca",
+        language: "pt-BR",
+        page: 1,
+       }      
+    })
+    //Se encontrar o filme entra em .then((response)
+    .then((response)=> {
+      //console.log(response.data);
+      setFilme(response.data);
+      setLoading(false);
+
+    })
+    //Se der errado entra em .catch
+    .catch(()=>{
+      console.log("Filme não encontrado");
+
+    })
+
+  }
+  loadFilme();
+
+
+  //Verificar a saida da página
+  return()=>{
+    console.log("Componente foi desmontado");
+  }
+
+}, [])
+
+
+//Para exibir um texto enquanto carrega
+if(loading){
+  return(
+    <div className="filme-info">
+      <h2>Carregando detalhes do filme...</h2>
+    </div>
+  )
+}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+
+
+/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
+propriedades da url da página "backdrop_path", "overview", "vote_average".
+
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
+
+<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+*/
+  return(
+    <div className="filme-info">
+      {/* <h1>Detalhes do filme { id } </h1> */}
+
+      <h1>{filme.title}</h1>
+      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <h3>Sinopse</h3>
+      <span>{filme.overview}</span>      
+      <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+      <button>Salvar</button>
+      <button><a href="#">Trailer</a></button>
+
+      </div>
+    
+    </div>
+  )
+}
+
+export default Filme;
+
+
+
+
+
+-----------------------Criar Filme/filme-info.css:
+
+.filme-info{
+    margin: 0 auto; /* Vai centralizar tudo */
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    padding: 8px 0;
+}
+
+.filme-info h1{
+    margin: 15px;
+}
+
+.filme-info img{
+    border-radius: 8px;
+    width: 800px;
+    max-width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+}
+
+.filme-info h3{
+    margin-top: 15px;
+}
+
+.filme-info span{
+    margin: 8px 0;
+}
+
+
+.area-buttons button {
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-left: 0;
+    font-size: 20px;
+    border: 0;
+    outline: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.area-buttons button:hover{
+    background-color: chocolate;
+    color: #FFF;
+}
+
+.area-buttons a{
+    text-decoration: none;
+    color: #000;
+    transition: all 0.2s;
+}
+
+.area-buttons a:hover{
+
+    color: #FFF;
+}
+
+
+
+---------------------------------Atualizar Filme/index.js com useNavigate:
+
+import { useEffect, useState } from "react";
+
+//Será importado o useNavigate para ser usado no .catch
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+
+import api from '../../services/api'; // para usar await
+
+import './filme-info.css';
+
+
+/* Para usar o useParams verifique em routes.js o nome dado, 
+se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+Neste caso foi "id" */
+
+function Filme(){
+  const {  id  } = useParams(); 
+//Pegou o id agora pode usar o useEffect
+
+const navigate = useNavigate(); //  <--- useNavigate()
+
+//para exibir em return
+const[filme, setFilme] = useState({});
+
+//Para exibir um texto enquanto carrega
+const[loading, setLoading] = useState(true);
+
+
+
+useEffect(()=> {
+  async function loadFilme(){
+    await api.get(`/movie/${id}` , {
+      params:{
+        api_key: "28fc232cc001c31e8a031f419d0a14ca",
+        language: "pt-BR",
+        page: 1,
+       }      
+    })
+    //Se encontrar o filme entra em .then((response)
+    .then((response)=> {
+      //console.log(response.data); //VAI EXIBIR TODOS OS PARÂMETROS DISPONÍVEIS QUE SE PODE USAR
+      setFilme(response.data);
+      setLoading(false);
+
+    })
+    //Se der errado entra em .catch
+    .catch(()=>{
+      console.log("Filme não encontrado");
+      navigate("/", {replace: true}); // Em caso de erro usuário será enviado para "/" (home)
+      return; // vai parar a execução do código
+    }) // Teste agora um filme que não existe: http://localhost:3000/filme/d3434dddd32315162
+
+  }
+  loadFilme();
+
+
+  //Verificar a saida da página
+  return()=>{
+    console.log("Componente foi desmontado");
+  }
+
+}, [navigate, id]) //   <-- Passar navigate e id aqui. São dependências que estão sendo utilizadas fora de UseEffect
+
+
+//Para exibir um texto enquanto carrega
+if(loading){
+  return(
+    <div className="filme-info">
+      <h2>Carregando detalhes do filme...</h2>
+    </div>
+  )
+}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+
+
+/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
+propriedades da url da página "backdrop_path", "overview", "vote_average".
+
+https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
+
+<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+*/
+  return(
+    <div className="filme-info">
+      {/* <h1>Detalhes do filme { id } </h1> */}
+
+      <h1>{filme.title}</h1>
+      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <h3>Sinopse</h3>
+      <span>{filme.overview}</span>      
+      <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+      <button>Salvar</button>
+      {/*<button><a href="#">Trailer</a></button>  PARA TESTE*/}
+      <button><a target="blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
+      </div>
+    
+    </div>
+  )
+}
+
+export default Filme;
+
+
+
+------------------------------
+------------------------------Atualizar Filme/index.js com Botão salvar em uma lista de favoritos:
+
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import api from '../../services/api'; 
+import './filme-info.css';
+
+
+function Filme(){
+  const {  id  } = useParams(); 
+  const navigate = useNavigate(); 
+  const[filme, setFilme] = useState({});
+  const[loading, setLoading] = useState(true);
+
+useEffect(()=> {
+  async function loadFilme(){
+    await api.get(`/movie/${id}` , {
+      params:{
+        api_key: "28fc232cc001c31e8a031f419d0a14ca",
+        language: "pt-BR",
+        page: 1,
+       }      
+    })
+    
+    .then((response)=> {
+      
+      setFilme(response.data);
+      setLoading(false);
+
+    })
+   
+    .catch(()=>{
+      console.log("Filme não encontrado");
+      navigate("/", {replace: true}); 
+      return; 
+    }) 
+  }
+  loadFilme();
+  
+  return()=>{
+    console.log("Componente foi desmontado");
+  }
+
+}, [navigate, id]) 
+
+//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+function salvarFilme(){
+  //alert("teste botão salvar filme")
+  const minhaLista = localStorage.getItem("@salvarfilmes")
+  
+  let filmeSalvo = JSON.parse(minhaLista) || []; // Aqui vai verificar se existe ou criar um array
+
+  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se já existe na lista
+//Vai retornar boolean
+
+if(hasFilme){
+  alert("Esse filme já está na lista");
+return; // para parar a execução
+}
+filmeSalvo.push(filme);
+localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
+alert("Filme salvo com sucesso!")
+
+}
+
+
+if(loading){
+  return(
+    <div className="filme-info">
+      <h2>Carregando detalhes do filme...</h2>
+    </div>
+  )
+}
+  return(
+    <div className="filme-info">
+      
+      <h1>{filme.title}</h1>
+      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <h3>Sinopse</h3>
+      <span>{filme.overview}</span>      
+      <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+
+      <button onClick={salvarFilme}>Salvar</button>
+      
+      <button><a target="blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
+      </div>
+    
+    </div>
+  )
+}
+
+export default Filme;
+
+
+------------------------------
+Criar página de favoritos e favoritos.css:
+------------------------------
+Em pages/Favoritos/index.js:
+
+
+import './favoritos.css';
+
+function Favoritos(){
+    return(
+        <div>
+            Tela favoritos
+        </div>
+    );
+}
+
+export default Favoritos;
+
+
+------------------------------Atualizar routes.js:
+
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Filme from './pages/Filme';
+import Header from './components/Header';
+import Erro from './pages/Erro';
+
+import Favoritos from './pages/Favoritos';
+
+function RoutesApp(){
+  return(
+    <BrowserRouter>
+      <Header/>
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/filme/:id" element={ <Filme/> } />
+
+        <Route path='/favoritos' element={ <Favoritos/> }/>
+
+        <Route path='*' element={ <Erro/>}/>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default RoutesApp;
+
+
+
+//Atualizar a página e verificar
+
+
+
+
+------------------------------Atualizar Favoritos/index.js:
+
+
+/* Atualizar a página e verificar.
+
+Vá em  inspecionar/Application/LocalStorage/http://localhost:3000/
+
+para visualizar os dados do array que foi pego.
+
+*/
+
+import {useEffect, useState} from 'react';
+import './favoritos.css';
+
+//Para poder acessar os detalher usar:
+import { Link } from 'react-router-dom';
+
+function Favoritos(){
+
+    const [filmes, setFilmes] = useState([]);
+    useEffect(()=>{
+        const minhaLista=localStorage.getItem("@salvarfilmes");
+        setFilmes(JSON.parse(minhaLista) || [])
+
+    }, [])
+
+    return(
+        <div className='meus-filmes'>
+            <h1>Meus filmes favoritos</h1>
+
+            <ul>
+                {filmes.map((item)=>{
+                    return(
+                        <li key={item.id}>
+                            <span>{item.title}</span>
+                            <div>
+                                <Link to={`/filme/${item.id}`}>Ver detalhes</Link>
+                                <button>Excluir</button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+    );
+}
+
+export default Favoritos;
+
+
+
+------------------------------Estilizar Favoritos/favoritos.css:
+
+
+.meus-filmes{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meus-filmes h1{
+    margin-bottom: 15px;
+}
+
+.meus-filmes span{
+    font-size: 18px;
+}
+
+.meus-filmes ul{
+    width: 720px;
+}
+
+.meus-filmes ul li{
+    list-style: none;/* Para não ter o asterisco em itens*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.meus-filmes div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meus-filmes div a{
+    text-decoration: none;
+    color: rgb(50, 20, 141);
+    margin-right: 15px;    
+}
+
+
+
+
+------------------------------Atualizar Favoritos/index.js com botão EXCLUIR:
+
+
+
+/* Atualizar a página e verificar.
+
+Vá em  inspecionar/Application/LocalStorage/http://localhost:3000/
+
+para visualizar os dados do array que foi pego.
+
+*/
+
+import {useEffect, useState} from 'react';
+import './favoritos.css';
+
+//Para poder acessar os detalher usar:
+import { Link } from 'react-router-dom';
+
+function Favoritos(){
+
+    const [filmes, setFilmes] = useState([]);
+    useEffect(()=>{
+        const minhaLista=localStorage.getItem("@salvarfilmes");
+        setFilmes(JSON.parse(minhaLista) || [])
+
+    }, [])
+
+/* são 2 coisas. Tirar o item da lista e do localStorage.
+filmes. Tem todos os filmes
+
+filter() filtra as opções
+
+return(item.id !== id);   Vai devolver todos os filmes menos o que foi excluido
+
+Agora tratar de destruir em localStorage:
+
+
+*/
+
+function excluirFilme(id){
+   // alert("Teste botão excluir. ID clicado: " + id);
+   let filtroFilmes = filmes.filter((item)=>{
+        return(item.id !== id);
+   })
+   setFilmes(filtroFilmes);
+   localStorage.setItem("@salvarfilmes", JSON.stringify(filtroFilmes))
+}
+
+
+    return(
+        <div className='meus-filmes'>
+            <h1>Meus filmes favoritos</h1> 
+
+        {filmes.length===0 && <span>Não tem filme salvo nesta lista</span>}
+        
+            <ul>
+                {filmes.map((item)=>{
+                    return(
+                        <li key={item.id}>
+                            <span>{item.title}</span>
+                            <div>
+                                <Link to={`/filme/${item.id}`}>Ver detalhes</Link>
+                                <button onClick={ ()=> excluirFilme(item.id)}>Excluir</button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+    );
+}
+
+export default Favoritos;
+
+
+
+------------------------------------------------
+Personalizar os alerts
+Usar React-toastify
+
+https://fkhadra.github.io/react-toastify/introduction
+------------------------------------------------
+Fechar terminal e iniciar novo.
+No terminal:
+npm install react-toastify
+npm start
+
+Em src App.js atualizar para:
+
+
+import RoutesApp from './routes';
+
+import { ToastContainer } from 'react-toastify';
+//No site diz para importar o css do ToastContainer:
+//      https://fkhadra.github.io/react-toastify/introduction
+//      https://fkhadra.github.io/react-toastify/installation
+import 'react-toastify/dist/ReactToastify.css';
+
+// Fechar ToastContainer em 3 segundos --> autoClose={3000}
+function App() {
+  return (
+    <div className="App">
+      <ToastContainer autoClose={3000}/>
+      <RoutesApp/>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+------------------------------
+---------Atualizar Filme/index.js com a importação do 'react-toastify'e
+alterar o "alert" para toast.
+
+Aquio está um fragmento:
+
+
+import { toast } from 'react-toastify';
+
+
+
+if(hasFilme){
+  //alert("Esse filme já está na lista");
+  toast.warn("Esse filme já está na lista");
+
+return; // para parar a execução
+}
+filmeSalvo.push(filme);
+localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
+//alert("Filme salvo com sucesso!")
+toast.success("Filme salvo com sucesso!");
+}
+
+--------------------------------------Fica assim:
+
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import api from '../../services/api'; 
+import './filme-info.css';
+
+import { toast } from 'react-toastify';
+
+function Filme(){
+  const {  id  } = useParams(); 
+  const navigate = useNavigate(); 
+  const[filme, setFilme] = useState({});
+  const[loading, setLoading] = useState(true);
+
+useEffect(()=> {
+  async function loadFilme(){
+    await api.get(`/movie/${id}` , {
+      params:{
+        api_key: "28fc232cc001c31e8a031f419d0a14ca",
+        language: "pt-BR",
+        page: 1,
+       }      
+    })
+    
+    .then((response)=> {
+      
+      setFilme(response.data);
+      setLoading(false);
+
+    })
+   
+    .catch(()=>{
+      console.log("Filme não encontrado");
+      navigate("/", {replace: true}); 
+      return; 
+    }) 
+  }
+  loadFilme();
+  
+  return()=>{
+    console.log("Componente foi desmontado");
+  }
+
+}, [navigate, id]) 
+
+//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+function salvarFilme(){
+  //alert("teste botão salvar filme")
+  const minhaLista = localStorage.getItem("@salvarfilmes")
+  
+  let filmeSalvo = JSON.parse(minhaLista) || []; // Aqui vai verificar se existe ou criar um array
+
+  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se já existe na lista
+//Vai retornar boolean
+
+if(hasFilme){
+  //alert("Esse filme já está na lista");
+  toast.warn("Esse filme já está na lista");
+
+return; // para parar a execução
+}
+filmeSalvo.push(filme);
+localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
+//alert("Filme salvo com sucesso!")
+toast.success("Filme salvo com sucesso!");
+
+}
+
+
+if(loading){
+  return(
+    <div className="filme-info">
+      <h2>Carregando detalhes do filme...</h2>
+    </div>
+  )
+}
+  return(
+    <div className="filme-info">
+      
+      <h1>{filme.title}</h1>
+      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <h3>Sinopse</h3>
+      <span>{filme.overview}</span>      
+      <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+
+      <button onClick={salvarFilme}>Salvar</button>
+      
+      <button><a target="blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
+      </div>
+    
+    </div>
+  )
+}
+
+export default Filme;
+
+
+
+----------------------------------
+----------------------------------Atualizar Favoritos/index.js com toast:
+
+import {useEffect, useState} from 'react';
+import './favoritos.css';
+
+//Para poder acessar os detalher usar:
+import { Link } from 'react-router-dom';
+
+import { toast } from 'react-toastify';    //  <----
+
+function Favoritos(){
+
+    const [filmes, setFilmes] = useState([]);
+    useEffect(()=>{
+        const minhaLista=localStorage.getItem("@salvarfilmes");
+        setFilmes(JSON.parse(minhaLista) || [])
+
+    }, [])
+
+/* são 2 coisas. Tirar o item da lista e do localStorage.
+filmes. Tem todos os filmes
+
+filter() filtra as opções
+
+return(item.id !== id);   Vai devolver todos os filmes menos o que foi excluido
+
+Agora tratar de destruir em localStorage:
+
+
+*/
+
+function excluirFilme(id){
+   // alert("Teste botão excluir. ID clicado: " + id);
+   let filtroFilmes = filmes.filter((item)=>{
+        return(item.id !== id);
+   })
+   setFilmes(filtroFilmes);
+   localStorage.setItem("@salvarfilmes", JSON.stringify(filtroFilmes))
+
+   toast.success("Filme removido com sucesso");		//  <----
+
+}
+
+
+    return(
+        <div className='meus-filmes'>
+            <h1>Meus filmes favoritos</h1> 
+
+        {filmes.length===0 && <span>Não tem filme salvo nesta lista</span>}
+        
+            <ul>
+                {filmes.map((item)=>{
+                    return(
+                        <li key={item.id}>
+                            <span>{item.title}</span>
+                            <div>
+                                <Link to={`/filme/${item.id}`}>Ver detalhes</Link>
+                                <button onClick={ ()=> excluirFilme(item.id)}>Excluir</button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+    );
+}
+
+export default Favoritos;
+
+
+
+____________________________________________
+Encerrou aqui. Agora publicar na netlify
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -46,9 +46,9 @@ if(loading){
 
   return(
     <div>
-      <h1>BEM VINDO A HOME</h1>
       <div className='container'>
         <div className='lista-filmes'>
+        <h1>Top 10</h1>
           {filmes.map((filme)=> {
             return(
               <article key={filme.id}>
