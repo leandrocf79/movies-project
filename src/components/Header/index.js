@@ -5,7 +5,11 @@ function Header(){
   return(
     <header>
       <Link className="logo" to="/">Filmes Flix</Link>
-      <Link className="favoritos" to="/favoritos">Meus filmes</Link>
+      <nav>
+        <Link className="favoritos" to="/">Página inicial</Link>
+        <Link className="favoritos" to="/favoritos">Meus filmes favoritos</Link>
+      </nav>
+     
     </header>
   )
 }
