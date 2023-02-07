@@ -1,7 +1,7 @@
-Para alterar idioma de exibição:
+Para alterar idioma de exibiï¿½ï¿½o:
 Ctrl+Shift+P
 digite na barra: display
-selecione: Configurar idioma de exibição
+selecione: Configurar idioma de exibiï¿½ï¿½o
 
 npx create-react-app filmes
 cd filmes
@@ -53,7 +53,7 @@ root.render(
 
 
 -----
-alterar configurações inicias em index.css:
+alterar configuraï¿½ï¿½es inicias em index.css:
 
 
 *{
@@ -87,7 +87,7 @@ Criando o projeto
 
 
 
-Em src/pages/Home/index.js e criar um componente padrão: ((veja pasta e function com primeira letra maiuscula.))
+Em src/pages/Home/index.js e criar um componente padrï¿½o: ((veja pasta e function com primeira letra maiuscula.))
 
 
 function Home(){
@@ -102,12 +102,12 @@ export default Home;
 
 
 -----
-Em src/pages/Filme/index.js e criar um componente padrão:
+Em src/pages/Filme/index.js e criar um componente padrï¿½o:
 
 function Filme(){
     return(
         <div>
-            Página filmes
+            Pï¿½gina filmes
         </div>
     );
 }
@@ -171,11 +171,11 @@ export default App;
 
 --------------------------------------
 
-Criar cabeçalho.
+Criar cabeï¿½alho.
 src/components/Header/index.js:
 
 import './header.css';
-import { Link } from 'react-router-dom'; //L maiúsculo
+import { Link } from 'react-router-dom'; //L maiï¿½sculo
 
 function Header(){
   return(
@@ -224,34 +224,34 @@ header{
 --------------------------------Atualizar routes.js SEMPRE QUE CRIAR NOVAS ROTAS
 
 -----------------------------
-Buscar uma API para requisições HTTP
+Buscar uma API para requisiï¿½ï¿½es HTTP
 
 Exemplo usado neste projeto:
-Vá em 
+Vï¿½ em 
 https://www.themoviedb.org/?language=br
 
 Criar uma conta gratuita, confirme no email.
 
-Volte ao site e entre em configurações/API e solicitar CHAVE de API
+Volte ao site e entre em configuraï¿½ï¿½es/API e solicitar CHAVE de API
 
 Developer
  Aceitar os termos.
 
-Faça o cadastro, tipo de uso pessoal e justifique...
+Faï¿½a o cadastro, tipo de uso pessoal e justifique...
 
-Agora será liberada a chave e link de demonstração.
+Agora serï¿½ liberada a chave e link de demonstraï¿½ï¿½o.
 
-Será algo parecido com isso:
+Serï¿½ algo parecido com isso:
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
 
-Use a extensão "JSON Viewer" no navegador para visualizar melhor
+Use a extensï¿½o "JSON Viewer" no navegador para visualizar melhor
 Download em:
 https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh?hl=pt-br
-Em configurações melhor escolher drácula para visualizalção. 
-Deixar opção para "Usar somente quewndo clicar na extensão"
+Em configuraï¿½ï¿½es melhor escolher drï¿½cula para visualizalï¿½ï¿½o. 
+Deixar opï¿½ï¿½o para "Usar somente quewndo clicar na extensï¿½o"
 
 -----
-Se usar um parâmetro de idioma na frente do link ele já traduz ( &language=pt-BR )
+Se usar um parï¿½metro de idioma na frente do link ele jï¿½ traduz ( &language=pt-BR )
 
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
 
@@ -261,20 +261,20 @@ https://api.themoviedb.org/3/
 
 
 -----
-Veja outras opções no site, clique no link que está nesta parte:
+Veja outras opï¿½ï¿½es no site, clique no link que estï¿½ nesta parte:
 
-Documentação
+Documentaï¿½ï¿½o
 Our primary documentation is located at __developers.themoviedb.org.__
 
-Deixe na versão 3
+Deixe na versï¿½o 3
 
-Vá em movies e veja tudo que é possivel utilizar nesta opção
+Vï¿½ em movies e veja tudo que ï¿½ possivel utilizar nesta opï¿½ï¿½o
 
 
 -----------------------
 ----------------------
-Em todas as requisições HTTP será usado a biblioteca "axios", melhor que usar "fetch". 
-Porém o axios deve ser instalado no terminal:
+Em todas as requisiï¿½ï¿½es HTTP serï¿½ usado a biblioteca "axios", melhor que usar "fetch". 
+Porï¿½m o axios deve ser instalado no terminal:
 npm install axios
 
 Em src/services/api.js:
@@ -285,10 +285,10 @@ Em src/services/api.js:
 Base da url:
 https://api.themoviedb.org/3/
 
-O restante são as rotas, podem ser utilizadas na Home
+O restante sï¿½o as rotas, podem ser utilizadas na Home
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca&language=pt-BR
 
-"movie/now_plaing" rota da URL que será utilizada.
+"movie/now_plaing" rota da URL que serï¿½ utilizada.
 
 */
 
@@ -308,33 +308,33 @@ Home:
 
 
 // https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
-// "movie/now_playing" rota que da URL que será utilizada.
+// "movie/now_playing" rota que da URL que serï¿½ utilizada.
 
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
 
 // useEffect, vai buscar os filmes
-// useState, depois que buscar armazenar em um estado para que quando o usuário abrir a aplicação carregue os filmes.
+// useState, depois que buscar armazenar em um estado para que quando o usuï¿½rio abrir a aplicaï¿½ï¿½o carregue os filmes.
 
 function Home(){
 
   const [filmes, setFilmes] = useState([]);
 
-  // toda vez que que a aplicação abrir vai chamar useEffect
+  // toda vez que que a aplicaï¿½ï¿½o abrir vai chamar useEffect
   useEffect(() => {
     async function loadFilmes(){
-      //await  para esperar a requisição
-      //get para buscar informações
+      //await  para esperar a requisiï¿½ï¿½o
+      //get para buscar informaï¿½ï¿½es
       const response = await api.get("movie/now_playing",{
         params: {
           api_key:'28fc232cc001c31e8a031f419d0a14ca',
           language: 'pt-BR',
           page: 1,
         }
-      })    // "movie/now_playing" rota que da URL que será utilizada.
+      })    // "movie/now_playing" rota que da URL que serï¿½ utilizada.
       
       //console.log(response); //para testar
-      //console.log(response.data); // Aqui vai aparecer tudo que precisa para chamar na aplicação.
+      //console.log(response.data); // Aqui vai aparecer tudo que precisa para chamar na aplicaï¿½ï¿½o.
       console.log(response.data.results);
     }
     loadFilmes();
@@ -351,7 +351,7 @@ function Home(){
 export default Home;
 
 
--------------------------------------Atualizações na Home passando conteúdo para setFilmes.
+-------------------------------------Atualizaï¿½ï¿½es na Home passando conteï¿½do para setFilmes.
 
 
 
@@ -379,7 +379,7 @@ function Home(){
       })
 
       //console.log(response.data.results); // Exibiu 20 itens, para pegar apenas 10:
-      //console.log(response.data.results.slice(0,10)); //Agora é só passar para o setFilmes
+      //console.log(response.data.results.slice(0,10)); //Agora ï¿½ sï¿½ passar para o setFilmes
       
       setFilmes(response.data.results.slice(0,10))
 
@@ -391,7 +391,7 @@ function Home(){
 
 //    {filmes.map((filme)=> {     Vai percorrer toda a lista.
 
-// imagem terá parte do link, pode concatenar com a base do  link. Veja a base do link no site de origem, em imagens. https:image.tmdb.org/t/p/original/
+// imagem terï¿½ parte do link, pode concatenar com a base do  link. Veja a base do link no site de origem, em imagens. https://image.tmdb.org/t/p/original/
 // Para concatenar lembre-se das aspas de crase.
 
   return(
@@ -403,7 +403,7 @@ function Home(){
             return(
               <article key={filme.id}>
                  <strong>{ filme.title }</strong>
-                 <img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+                 <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
                  <Link to ={`filme/${ filme.id }`}>Acessar</Link>
               </article>
             )
@@ -514,7 +514,7 @@ function Home(){
 
       setFilmes(response.data.results.slice(0,10))
       
-      // Carregando filmes...  (Passe para "false" para exibir o conteúdo)
+      // Carregando filmes...  (Passe para "false" para exibir o conteï¿½do)
       SetLoading(false);
     }
 
@@ -543,7 +543,7 @@ if(loading){
             return(
               <article key={filme.id}>
                  <strong>{ filme.title }</strong>
-                 <img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+                 <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
                  <Link to ={`filme/${ filme.id }`}>Acessar</Link>
               </article>
             )
@@ -626,14 +626,14 @@ export default Home;
 
 
 --------------------------------------
-Criar páginas de erro.
+Criar pï¿½ginas de erro.
 --------------------------------------
 Em pages/erro/index.jx:
 
 function Erro(){
     return(
         <div>
-            <h1>Página não encontrada.</h1>TESTE
+            <h1>Pï¿½gina nï¿½o encontrada.</h1>TESTE
         </div>
     )
 }
@@ -651,9 +651,9 @@ function Erro(){
     return(
         <div className='erro-404'>
             <h1>Erro 404</h1>
-            <h2>Página não encontrada.</h2>
+            <h2>Pï¿½gina nï¿½o encontrada.</h2>
 
-            <Link to="/">Voltar para página inicial</Link>
+            <Link to="/">Voltar para pï¿½gina inicial</Link>
         </div>
     )
 }
@@ -669,7 +669,7 @@ export default Erro;
 .erro-404{
     width: 100%;
     /* height: 100vh; */
-    height: calc(100vh - 60px); /* 60px é do cabeçalho */
+    height: calc(100vh - 60px); /* 60px ï¿½ do cabeï¿½alho */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -681,7 +681,7 @@ export default Erro;
 }
 
 
-/* Onde está "Link" use "a" aqui no css*/
+/* Onde estï¿½ "Link" use "a" aqui no css*/
 .erro-404 a {
     text-decoration: none;
     background-color: #116feb;
@@ -726,16 +726,16 @@ export default RoutesApp;
 
 
 --------------------------------------
-Ao clicar no filme criar página para DETALHES DO FILME
+Ao clicar no filme criar pï¿½gina para DETALHES DO FILME
 --------------------------------------
 
-Atualizar página Filme/index.js:
+Atualizar pï¿½gina Filme/index.js:
 
 
 
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; //para pegar os parâmetros
+import { useParams } from "react-router-dom"; //para pegar os parï¿½metros
 
 import api from '../../services/api'; // para usar await
 
@@ -743,7 +743,7 @@ import api from '../../services/api'; // para usar await
 
 
 /* Para usar o useParams verifique em routes.js o nome dado, 
-se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+se foi id, key ou outros nesta ï¿½rea --> <Route path="/filme/:id" element={ <Filme/> } />
 Neste caso foi "id" */
 
 function Filme(){
@@ -776,7 +776,7 @@ useEffect(()=> {
     })
     //Se der errado entra em .catch
     .catch(()=>{
-      console.log("Filme não encontrado");
+      console.log("Filme nï¿½o encontrado");
 
     })
 
@@ -784,7 +784,7 @@ useEffect(()=> {
   loadFilme();
 
 
-  //Verificar a saida da página
+  //Verificar a saida da pï¿½gina
   return()=>{
     console.log("Componente foi desmontado");
   }
@@ -799,26 +799,26 @@ if(loading){
       <h2>Carregando detalhes do filme...</h2>
     </div>
   )
-}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+}//Quando loading for falso aï¿½ jï¿½ vai para o prï¿½ximo return abaixo. (jï¿½ carregou tudo)
 
 
-/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
-propriedades da url da página "backdrop_path", "overview", "vote_average".
+/*Na home tem a url que serï¿½ utilizada abaixo, com um alteraï¿½ï¿½o, veja nas
+propriedades da url da pï¿½gina "backdrop_path", "overview", "vote_average".
 
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
 
-<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
-<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
 */
   return(
     <div className="filme-info">
       {/* <h1>Detalhes do filme { id } </h1> */}
 
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>
-      <strong>Avaliação: {filme.vote_average} / 10</strong>
+      <strong>Avaliaï¿½ï¿½o: {filme.vote_average} / 10</strong>
     </div>
   )
 }
@@ -827,12 +827,12 @@ export default Filme;
 
 
 ------------------------------------
-------------------------------------CRIAR BOTÕES.
+------------------------------------CRIAR BOTï¿½ES.
 
-Atualizar página Filme/index.js NOVAMENTE:
+Atualizar pï¿½gina Filme/index.js NOVAMENTE:
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; //para pegar os parâmetros
+import { useParams } from "react-router-dom"; //para pegar os parï¿½metros
 
 import api from '../../services/api'; // para usar await
 
@@ -840,7 +840,7 @@ import './filme-info.css';
 
 
 /* Para usar o useParams verifique em routes.js o nome dado, 
-se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+se foi id, key ou outros nesta ï¿½rea --> <Route path="/filme/:id" element={ <Filme/> } />
 Neste caso foi "id" */
 
 function Filme(){
@@ -873,7 +873,7 @@ useEffect(()=> {
     })
     //Se der errado entra em .catch
     .catch(()=>{
-      console.log("Filme não encontrado");
+      console.log("Filme nï¿½o encontrado");
 
     })
 
@@ -881,7 +881,7 @@ useEffect(()=> {
   loadFilme();
 
 
-  //Verificar a saida da página
+  //Verificar a saida da pï¿½gina
   return()=>{
     console.log("Componente foi desmontado");
   }
@@ -896,26 +896,26 @@ if(loading){
       <h2>Carregando detalhes do filme...</h2>
     </div>
   )
-}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+}//Quando loading for falso aï¿½ jï¿½ vai para o prï¿½ximo return abaixo. (jï¿½ carregou tudo)
 
 
-/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
-propriedades da url da página "backdrop_path", "overview", "vote_average".
+/*Na home tem a url que serï¿½ utilizada abaixo, com um alteraï¿½ï¿½o, veja nas
+propriedades da url da pï¿½gina "backdrop_path", "overview", "vote_average".
 
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
 
-<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
-<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
 */
   return(
     <div className="filme-info">
       {/* <h1>Detalhes do filme { id } </h1> */}
 
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
-      <strong>Avaliação: {filme.vote_average} / 10</strong>
+      <strong>Avaliaï¿½ï¿½o: {filme.vote_average} / 10</strong>
 
       <div className="area-buttons">
       <button>Salvar</button>
@@ -1000,8 +1000,8 @@ export default Filme;
 
 import { useEffect, useState } from "react";
 
-//Será importado o useNavigate para ser usado no .catch
-import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+//Serï¿½ importado o useNavigate para ser usado no .catch
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parï¿½metros
 
 import api from '../../services/api'; // para usar await
 
@@ -1009,7 +1009,7 @@ import './filme-info.css';
 
 
 /* Para usar o useParams verifique em routes.js o nome dado, 
-se foi id, key ou outros nesta área --> <Route path="/filme/:id" element={ <Filme/> } />
+se foi id, key ou outros nesta ï¿½rea --> <Route path="/filme/:id" element={ <Filme/> } />
 Neste caso foi "id" */
 
 function Filme(){
@@ -1037,28 +1037,28 @@ useEffect(()=> {
     })
     //Se encontrar o filme entra em .then((response)
     .then((response)=> {
-      //console.log(response.data); //VAI EXIBIR TODOS OS PARÂMETROS DISPONÍVEIS QUE SE PODE USAR
+      //console.log(response.data); //VAI EXIBIR TODOS OS PARï¿½METROS DISPONï¿½VEIS QUE SE PODE USAR
       setFilme(response.data);
       setLoading(false);
 
     })
     //Se der errado entra em .catch
     .catch(()=>{
-      console.log("Filme não encontrado");
-      navigate("/", {replace: true}); // Em caso de erro usuário será enviado para "/" (home)
-      return; // vai parar a execução do código
-    }) // Teste agora um filme que não existe: http://localhost:3000/filme/d3434dddd32315162
+      console.log("Filme nï¿½o encontrado");
+      navigate("/", {replace: true}); // Em caso de erro usuï¿½rio serï¿½ enviado para "/" (home)
+      return; // vai parar a execuï¿½ï¿½o do cï¿½digo
+    }) // Teste agora um filme que nï¿½o existe: http://localhost:3000/filme/d3434dddd32315162
 
   }
   loadFilme();
 
 
-  //Verificar a saida da página
+  //Verificar a saida da pï¿½gina
   return()=>{
     console.log("Componente foi desmontado");
   }
 
-}, [navigate, id]) //   <-- Passar navigate e id aqui. São dependências que estão sendo utilizadas fora de UseEffect
+}, [navigate, id]) //   <-- Passar navigate e id aqui. Sï¿½o dependï¿½ncias que estï¿½o sendo utilizadas fora de UseEffect
 
 
 //Para exibir um texto enquanto carrega
@@ -1068,26 +1068,26 @@ if(loading){
       <h2>Carregando detalhes do filme...</h2>
     </div>
   )
-}//Quando loading for falso aí já vai para o próximo return abaixo. (já carregou tudo)
+}//Quando loading for falso aï¿½ jï¿½ vai para o prï¿½ximo return abaixo. (jï¿½ carregou tudo)
 
 
-/*Na home tem a url que será utilizada abaixo, com um alteração, veja nas
-propriedades da url da página "backdrop_path", "overview", "vote_average".
+/*Na home tem a url que serï¿½ utilizada abaixo, com um alteraï¿½ï¿½o, veja nas
+propriedades da url da pï¿½gina "backdrop_path", "overview", "vote_average".
 
 https://api.themoviedb.org/3/movie/550?api_key=28fc232cc001c31e8a031f419d0a14ca
 
-<img src={`https:image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
-<img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+<img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
 */
   return(
     <div className="filme-info">
       {/* <h1>Detalhes do filme { id } </h1> */}
 
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
-      <strong>Avaliação: {filme.vote_average} / 10</strong>
+      <strong>Avaliaï¿½ï¿½o: {filme.vote_average} / 10</strong>
 
       <div className="area-buttons">
       <button>Salvar</button>
@@ -1104,10 +1104,10 @@ export default Filme;
 
 
 ------------------------------
-------------------------------Atualizar Filme/index.js com Botão salvar em uma lista de favoritos:
+------------------------------Atualizar Filme/index.js com Botï¿½o salvar em uma lista de favoritos:
 
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parï¿½metros
 import api from '../../services/api'; 
 import './filme-info.css';
 
@@ -1136,7 +1136,7 @@ useEffect(()=> {
     })
    
     .catch(()=>{
-      console.log("Filme não encontrado");
+      console.log("Filme nï¿½o encontrado");
       navigate("/", {replace: true}); 
       return; 
     }) 
@@ -1149,19 +1149,19 @@ useEffect(()=> {
 
 }, [navigate, id]) 
 
-//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+//Funï¿½ï¿½o do botï¿½o salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
 function salvarFilme(){
-  //alert("teste botão salvar filme")
+  //alert("teste botï¿½o salvar filme")
   const minhaLista = localStorage.getItem("@salvarfilmes")
   
   let filmeSalvo = JSON.parse(minhaLista) || []; // Aqui vai verificar se existe ou criar um array
 
-  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se já existe na lista
+  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se jï¿½ existe na lista
 //Vai retornar boolean
 
 if(hasFilme){
-  alert("Esse filme já está na lista");
-return; // para parar a execução
+  alert("Esse filme jï¿½ estï¿½ na lista");
+return; // para parar a execuï¿½ï¿½o
 }
 filmeSalvo.push(filme);
 localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
@@ -1181,10 +1181,10 @@ if(loading){
     <div className="filme-info">
       
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
-      <strong>Avaliação: {filme.vote_average} / 10</strong>
+      <strong>Avaliaï¿½ï¿½o: {filme.vote_average} / 10</strong>
 
       <div className="area-buttons">
 
@@ -1201,7 +1201,7 @@ export default Filme;
 
 
 ------------------------------
-Criar página de favoritos e favoritos.css:
+Criar pï¿½gina de favoritos e favoritos.css:
 ------------------------------
 Em pages/Favoritos/index.js:
 
@@ -1250,7 +1250,7 @@ export default RoutesApp;
 
 
 
-//Atualizar a página e verificar
+//Atualizar a pï¿½gina e verificar
 
 
 
@@ -1258,9 +1258,9 @@ export default RoutesApp;
 ------------------------------Atualizar Favoritos/index.js:
 
 
-/* Atualizar a página e verificar.
+/* Atualizar a pï¿½gina e verificar.
 
-Vá em  inspecionar/Application/LocalStorage/http://localhost:3000/
+Vï¿½ em  inspecionar/Application/LocalStorage/http://localhost:3000/
 
 para visualizar os dados do array que foi pego.
 
@@ -1329,7 +1329,7 @@ export default Favoritos;
 }
 
 .meus-filmes ul li{
-    list-style: none;/* Para não ter o asterisco em itens*/
+    list-style: none;/* Para nï¿½o ter o asterisco em itens*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1351,13 +1351,13 @@ export default Favoritos;
 
 
 
-------------------------------Atualizar Favoritos/index.js com botão EXCLUIR:
+------------------------------Atualizar Favoritos/index.js com botï¿½o EXCLUIR:
 
 
 
-/* Atualizar a página e verificar.
+/* Atualizar a pï¿½gina e verificar.
 
-Vá em  inspecionar/Application/LocalStorage/http://localhost:3000/
+Vï¿½ em  inspecionar/Application/LocalStorage/http://localhost:3000/
 
 para visualizar os dados do array que foi pego.
 
@@ -1378,10 +1378,10 @@ function Favoritos(){
 
     }, [])
 
-/* são 2 coisas. Tirar o item da lista e do localStorage.
+/* sï¿½o 2 coisas. Tirar o item da lista e do localStorage.
 filmes. Tem todos os filmes
 
-filter() filtra as opções
+filter() filtra as opï¿½ï¿½es
 
 return(item.id !== id);   Vai devolver todos os filmes menos o que foi excluido
 
@@ -1391,7 +1391,7 @@ Agora tratar de destruir em localStorage:
 */
 
 function excluirFilme(id){
-   // alert("Teste botão excluir. ID clicado: " + id);
+   // alert("Teste botï¿½o excluir. ID clicado: " + id);
    let filtroFilmes = filmes.filter((item)=>{
         return(item.id !== id);
    })
@@ -1404,7 +1404,7 @@ function excluirFilme(id){
         <div className='meus-filmes'>
             <h1>Meus filmes favoritos</h1> 
 
-        {filmes.length===0 && <span>Não tem filme salvo nesta lista</span>}
+        {filmes.length===0 && <span>Nï¿½o tem filme salvo nesta lista</span>}
         
             <ul>
                 {filmes.map((item)=>{
@@ -1465,10 +1465,10 @@ export default App;
 
 
 ------------------------------
----------Atualizar Filme/index.js com a importação do 'react-toastify'e
+---------Atualizar Filme/index.js com a importaï¿½ï¿½o do 'react-toastify'e
 alterar o "alert" para toast.
 
-Aquio está um fragmento:
+Aquio estï¿½ um fragmento:
 
 
 import { toast } from 'react-toastify';
@@ -1476,10 +1476,10 @@ import { toast } from 'react-toastify';
 
 
 if(hasFilme){
-  //alert("Esse filme já está na lista");
-  toast.warn("Esse filme já está na lista");
+  //alert("Esse filme jï¿½ estï¿½ na lista");
+  toast.warn("Esse filme jï¿½ estï¿½ na lista");
 
-return; // para parar a execução
+return; // para parar a execuï¿½ï¿½o
 }
 filmeSalvo.push(filme);
 localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
@@ -1490,7 +1490,7 @@ toast.success("Filme salvo com sucesso!");
 --------------------------------------Fica assim:
 
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import { useParams, useNavigate } from "react-router-dom"; //para pegar os parï¿½metros
 import api from '../../services/api'; 
 import './filme-info.css';
 
@@ -1520,7 +1520,7 @@ useEffect(()=> {
     })
    
     .catch(()=>{
-      console.log("Filme não encontrado");
+      console.log("Filme nï¿½o encontrado");
       navigate("/", {replace: true}); 
       return; 
     }) 
@@ -1533,21 +1533,21 @@ useEffect(()=> {
 
 }, [navigate, id]) 
 
-//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+//Funï¿½ï¿½o do botï¿½o salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
 function salvarFilme(){
-  //alert("teste botão salvar filme")
+  //alert("teste botï¿½o salvar filme")
   const minhaLista = localStorage.getItem("@salvarfilmes")
   
   let filmeSalvo = JSON.parse(minhaLista) || []; // Aqui vai verificar se existe ou criar um array
 
-  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se já existe na lista
+  const hasFilme = filmeSalvo.some((filmeSalvo)=> filmeSalvo.id === filme.id ); // Vai verificar por id se jï¿½ existe na lista
 //Vai retornar boolean
 
 if(hasFilme){
-  //alert("Esse filme já está na lista");
-  toast.warn("Esse filme já está na lista");
+  //alert("Esse filme jï¿½ estï¿½ na lista");
+  toast.warn("Esse filme jï¿½ estï¿½ na lista");
 
-return; // para parar a execução
+return; // para parar a execuï¿½ï¿½o
 }
 filmeSalvo.push(filme);
 localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
@@ -1568,10 +1568,10 @@ if(loading){
     <div className="filme-info">
       
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
-      <strong>Avaliação: {filme.vote_average} / 10</strong>
+      <strong>Avaliaï¿½ï¿½o: {filme.vote_average} / 10</strong>
 
       <div className="area-buttons">
 
@@ -1608,10 +1608,10 @@ function Favoritos(){
 
     }, [])
 
-/* são 2 coisas. Tirar o item da lista e do localStorage.
+/* sï¿½o 2 coisas. Tirar o item da lista e do localStorage.
 filmes. Tem todos os filmes
 
-filter() filtra as opções
+filter() filtra as opï¿½ï¿½es
 
 return(item.id !== id);   Vai devolver todos os filmes menos o que foi excluido
 
@@ -1621,7 +1621,7 @@ Agora tratar de destruir em localStorage:
 */
 
 function excluirFilme(id){
-   // alert("Teste botão excluir. ID clicado: " + id);
+   // alert("Teste botï¿½o excluir. ID clicado: " + id);
    let filtroFilmes = filmes.filter((item)=>{
         return(item.id !== id);
    })
@@ -1637,7 +1637,7 @@ function excluirFilme(id){
         <div className='meus-filmes'>
             <h1>Meus filmes favoritos</h1> 
 
-        {filmes.length===0 && <span>Não tem filme salvo nesta lista</span>}
+        {filmes.length===0 && <span>Nï¿½o tem filme salvo nesta lista</span>}
         
             <ul>
                 {filmes.map((item)=>{
