@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; //para pegar os parâmetros
+import { useParams, useNavigate } from "react-router-dom"; //pegar os parâmetros
 import api from '../../services/api'; 
 import './filme-info.css';
 
@@ -42,7 +42,7 @@ useEffect(()=> {
 
 }, [navigate, id]) 
 
-//Função do botão salvar em favoritos. Criar uma chave com um nome qualquer, exemplo: @salvarfilmes
+
 function salvarFilme(){
   //alert("teste botão salvar filme")
   const minhaLista = localStorage.getItem("@salvarfilmes")
@@ -56,7 +56,7 @@ if(hasFilme){
   //alert("Esse filme já está na lista");
   toast.warn("Esse filme já está na lista");
 
-return; // para parar a execução
+return; // parar a execução
 }
 filmeSalvo.push(filme);
 localStorage.setItem("@salvarfilmes", JSON.stringify(filmeSalvo));
@@ -77,7 +77,7 @@ if(loading){
     <div className="filme-info">
       
       <h1>{filme.title}</h1>
-      <img src={`https:image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}/>
+      <img src = { `https://image.tmdb.org/t/p/original/${filme.backdrop_path}` } alt={filme.title}/>
       <h3>Sinopse</h3>
       <span>{filme.overview}</span>      
       <strong>Avaliação: {filme.vote_average} / 10</strong>
