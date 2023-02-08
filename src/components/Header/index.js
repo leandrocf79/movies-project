@@ -6,8 +6,8 @@ function Header(){
     <header>
       <Link className="logo" to="/">Filmes Flix</Link>
       <nav>
-        <Link className="favoritos" to="/">Página inicial</Link>
-        <Link className="favoritos" to="/favoritos">Meus filmes favoritos</Link>
+        <Link className="favoritos" to="/">Home</Link>
+        <Link className="favoritos" to="/favoritos">Favoritos</Link>
       </nav>
      
     </header>
